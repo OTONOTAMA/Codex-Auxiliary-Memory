@@ -1,6 +1,24 @@
 # Codex Auxiliary Memory
 
 A small, file-based supplementary memory package for **Codex on Windows**.
+
+Long AI development sessions can lose important context during **context
+compaction or session recovery**. This package keeps selected supplementary
+memory in local files and reinjects a short, validated note at supported
+**SessionStart** boundaries (startup, resume, clear and post-compaction).
+
+**Start with your AI agent:** give Codex the [installation ZIP](https://github.com/OTONOTAMA/Codex-Auxiliary-Memory/releases/latest)
+and the setup request below. Codex handles installation and verification;
+you review any required project/hook trust prompts. Targets Windows
+PowerShell 5.1 and a Codex client supporting project-local hooks.
+
+**Limits:** only recorded, selected information can be reloaded. This is not
+automatic transcript saving, complete memory restoration or complete prevention
+of compaction loss. Actual hook delivery must be verified on your target client.
+
+For development progress and machine-collected evidence, use the complementary
+[DEV_STATE](https://github.com/OTONOTAMA/DEV-STATE); neither tool grants execution permission.
+
 It starts with **empty memory**: no author's profile, policy, host facts,
 conversation history, work state, decisions, credentials or trust settings.
 
@@ -11,10 +29,12 @@ Download **Codex-Auxiliary-Memory-v0.2.0.zip** from
 GitHub's automatic **Source code (zip)** is the development source, not the
 ready-to-install package.
 
-Extract the installation ZIP and ask a new Codex chat:
+Give the installation ZIP to a new Codex chat and ask it to extract and set up:
 
 > Read FRESH_CHAT_HANDOFF.md and set this up for this project. Start with empty
 > memory; do not import previous memory. Inspect existing hooks before installing.
+> Handle installation and isolated tests, then report Status and target-client
+> injection separately. Guide me only when trust approval requires my action.
 
 See `START_HERE.md` for manual installation. Run the included tests before
 adapter Status, then verify actual session injection on your target.
@@ -82,6 +102,22 @@ Provided without warranty. This is an independent project, not an OpenAI product
 # Codex Auxiliary Memory — 日本語
 
 **Windows版Codex向け**の、小さなファイルベースの補助記憶パッケージです。
+
+長時間のAI開発セッションでは、**コンテキスト圧縮やセッション再開**により
+重要な情報が失われることがあります。選択した補助記憶をローカルファイルに保持し、
+対応する**SessionStart**境界（起動・再開・clear・圧縮後）で検証済みの短いメモを再投入します。
+
+**導入はAIへ依頼:** Codexに[導入用ZIP](https://github.com/OTONOTAMA/Codex-Auxiliary-Memory/releases/latest)と
+下記のセットアップ依頼を渡します。設置・検証はCodexが担当し、人間は必要な
+プロジェクト/Hookの信頼承認を行います。Windows PowerShell 5.1と、
+プロジェクト内Hookに対応するCodexクライアントが対象です。
+
+**限界:** 再投入できるのは選んで記録した情報だけです。会話全文の自動保存、完全な記憶復元、
+圧縮による情報損失の完全防止ではありません。実Hook発火は導入先で確認が必要です。
+
+開発進捗とマシンが取得した証拠には、相互補完する
+[DEV_STATE](https://github.com/OTONOTAMA/DEV-STATE)を利用できます。どちらも実行許可を作りません。
+
 **記憶が空の状態**から始めます。作者のプロフィール・ポリシー・PC情報・会話履歴・
 作業状態・決定履歴・資格情報・信頼設定は含みません。
 
@@ -91,10 +127,12 @@ Provided without warranty. This is an independent project, not an OpenAI product
 **Codex-Auxiliary-Memory-v0.2.0.zip**をダウンロードしてください。
 GitHub標準の **Source code (zip)** は開発用ソースであり、導入用ZIPではありません。
 
-導入用ZIPを展開し、新しいCodexチャットへ次のように依頼します。
+導入用ZIPを新しいCodexチャットへ渡し、展開・セットアップを次のように依頼します。
 
 > FRESH_CHAT_HANDOFF.mdを読んで、このプロジェクトにセットアップして。
 > 記憶は空から開始し、以前の記憶は取り込まないで。既存Hookは導入前に確認して。
+> 設置と隔離試験を担当し、Statusと導入先の実注入結果は分けて報告して。
+> 信頼承認で人間の操作が必要な場合だけ案内して。
 
 手動導入は`START_HERE.md`を参照してください。同梱テストを先に実行し、その後に
 アダプターのStatus、導入先の実セッションへの注入を確認します。
