@@ -93,9 +93,7 @@ An inherited PowerShell 7 module path is corrected only for child test processes
 
 ## License
 
-MIT — Copyright (c) 2026 OTONOTAMA. Use, modification, redistribution and commercial
-use are permitted under the license. Retain the copyright and license notice.
-Provided without warranty. This is an independent project, not an OpenAI product.
+MIT licensed.
 
 ---
 
@@ -187,6 +185,4 @@ PowerShell 7由来のモジュールパスは試験の子プロセス内だけ�
 
 ## ライセンス
 
-MIT — Copyright (c) 2026 OTONOTAMA。
-利用・改変・再配布・商用利用が可能です。著作権表示とライセンス文を保持してください。
-無保証です。OpenAI公式製品ではなく、独立したプロジェクトです。
+MITライセンスです。
