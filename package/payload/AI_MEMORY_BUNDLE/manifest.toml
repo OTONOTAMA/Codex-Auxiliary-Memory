@@ -1,0 +1,41 @@
+bundle_id = "AI_SUPPLEMENTARY_MEMORY_BUNDLE"
+version = "0.2"
+variant = "FRESH_EMPTY_MEMORY"
+release_state = "FRESH_TEMPLATE"
+target_environment = "WINDOWS_CODEX"
+entrypoint = "index.md"
+personal_memory_included = false
+live_target_validation = "UNVERIFIED"
+canonical_sources = ["canonical/policy.md", "canonical/profile.md", "canonical/facts.md", "state/current.md", "decisions/decisions.md"]
+default_read_order = ["manifest.toml", "index.md", "canonical/policy.md", "canonical/profile.md", "canonical/facts.md", "state/current.md", "decisions/decisions.md"]
+optional_sources = ["candidates/pending.md", "references/"]
+runtime_sources = ["runtime/HOT_STATE.md"]
+file_count_excluding_manifest = 11
+
+[integrity]
+"README.md" = "5AD4FAC7A3C99EAAAEC3EF55F2FBE656C4FD53B53DB6EC2A66427CD31CACCAAF"
+"index.md" = "F438F16176D04671C7482093385BCE5544F0B38C44AF8A8D831B799E21914D43"
+"canonical/policy.md" = "233AF0F435964781CCA39717FF7EA4241207C724EC926150E35500047BA80D70"
+"canonical/profile.md" = "86703F9DD6B9CEE525751740017F4D5A5A79B6C2F3904962DBC8DEB80B3E6E24"
+"canonical/facts.md" = "A8E05C30D750B9FDCCA874DF0FADBB333CB4C9AD07C8AA8C4B803791E1FD1F39"
+"state/current.md" = "B6247A09B41627B98FD2D305FA9C1F9417A69D4D8AAA058A80C78C6813C48E30"
+"decisions/decisions.md" = "D312B1904FB8873A6AB258773DCC3D4CB43B7008FB85FED8DAF779720EEF252A"
+"candidates/pending.md" = "0B17F0B5DAD50E3508756D8B7077ED260C5AF6A05859D8B836F28A5392AE8ECB"
+"references/README.md" = "E1615D7DD736A3640AB4D6654B304C5710B23E075930F09B47E96E6292DEE4BA"
+"runtime/HOT_STATE.md" = "C98F9044518427D2F533664AF2A4EAA99EC356838027AF8D89B3DE07BBD0FD50"
+"tests/test_adapter_v0.2.ps1" = "6FEE68AAE597A059A5B85BCB5376A28947E38ADF115C56436E24751632AAAAA2"
+
+[host_adapter]
+name = "codex-desktop-windows-sessionstart-v0.2"
+hooks_file = "../.codex/hooks.json"
+script = "../.codex/hooks/ai-memory-adapter.ps1"
+event = "SessionStart"
+sources = ["startup", "resume", "clear", "compact"]
+hot_state = "runtime/HOT_STATE.md"
+per_turn_hook = false
+reads_transcript = false
+requires_network = false
+
+[host_adapter.integrity]
+hooks_json_sha256 = "UNCONFIGURED_ON_TARGET"
+script_sha256 = "4D3783F65F9989DB04DCE611D178AB6272807E6BD3C2546B2197B8D6FE940ABD"
