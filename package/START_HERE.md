@@ -1,10 +1,21 @@
-# Codex Auxiliary Memory v0.2.0
+# Codex Auxiliary Memory v0.2.1
 
 記憶をゼロから使い始める、Windows版Codex向けのセットアップパッケージです。
 元ユーザーのプロフィール・ポリシー・環境情報・会話内容・作業状態・決定履歴は含みません。
 初期メモは空です。導入先の現在の指示・事実だけを記録してください。
 
 ## 最短手順
+
+標準はPROJECT内への導入です。同じ設置先のチャットはAI_MEMORY_BUNDLE全体を共有します。
+共有記憶は別チャットの作業再開やGOの根拠ではなく、個別の進捗はDEV_STATEで分離します。
+複数PC/複数人での自動共有・GLOBAL導入は提供しません。記憶更新は単一ローカル担当で調整します。
+AIはFRESH_CHAT_HANDOFF.mdの事前確認を実施し、Git追跡/公開への個人情報混入と既存設定の変更を防ぎます。
+
+Standard scope is PROJECT; chats using it share the whole memory bundle, not
+private task state or execution authority. DEV_STATE keeps per-chat progress separate.
+No automatic multi-PC/user sharing or GLOBAL installer is provided. Coordinate a
+single local memory writer. Codex must follow the scope/Git-safety preflight in
+FRESH_CHAT_HANDOFF.md; a clear standard setup needs no extra scope questionnaire.
 
 1. 新しいCodexチャットへこのZIPを渡します。
 2. 「FRESH_CHAT_HANDOFF.mdを読んで、この環境にセットアップして。以前の記憶は引き継がないで」と依頼します。

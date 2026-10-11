@@ -24,7 +24,7 @@ conversation history, work state, decisions, credentials or trust settings.
 
 ## Download and install
 
-Download **Codex-Auxiliary-Memory-v0.2.0.zip** from
+Download **Codex-Auxiliary-Memory-v0.2.1.zip** from
 [GitHub Releases](https://github.com/OTONOTAMA/Codex-Auxiliary-Memory/releases/latest).
 GitHub's automatic **Source code (zip)** is the development source, not the
 ready-to-install package.
@@ -42,6 +42,28 @@ Project and hook trust must be reviewed in the target client when requested;
 the package does not copy trust or change global configuration.
 
 ## What it does
+
+### Installation scope: PROJECT by default
+
+Code/Hook location and data-sharing scope are different concepts. The standard
+installer places the Hook in `<project>/.codex/` and memory in
+`<project>/AI_MEMORY_BUNDLE/`. Chats using that same project installation read
+the same selected memory. This keeps configuration bounded to the project;
+it does not provide private per-chat memory or automatically share across PCs/users.
+
+Keep shared policies/facts separate from chat-specific task progress. In particular,
+`state/current.md` is also shared: it is not another chat's execution plan or GO.
+Use DEV_STATE's chat/session-owned state for development progress. Coordinate
+memory writes through one local writer; concurrent writers/cloud-sync safety is
+not guaranteed. Review who can read the local files before storing personal data.
+
+GLOBAL/user-wide installation is **not shipped**. If requested, Codex must first
+assess feasibility, affected chats, data ownership, duplicate Hooks and verification,
+then confirm intent and approval for the nonstandard changes. Do not automatically
+overwrite, migrate or mix existing Hooks/settings/memory/progress/trust.
+Keep live memory, private configs and evidence out of Git/public uploads; have the
+agent inspect tracked files and establish appropriate exclusions. An ignore rule
+does not remove already-tracked data. Agent preflight: `FRESH_CHAT_HANDOFF.md`.
 
 - Keeps small files for adopted policies, preferences, verified facts,
   current work, material decisions and unverified candidates.
@@ -122,7 +144,7 @@ MIT licensed.
 ## ダウンロード・導入
 
 [GitHub Releases](https://github.com/OTONOTAMA/Codex-Auxiliary-Memory/releases/latest)から
-**Codex-Auxiliary-Memory-v0.2.0.zip**をダウンロードしてください。
+**Codex-Auxiliary-Memory-v0.2.1.zip**をダウンロードしてください。
 GitHub標準の **Source code (zip)** は開発用ソースであり、導入用ZIPではありません。
 
 導入用ZIPを新しいCodexチャットへ渡し、展開・セットアップを次のように依頼します。
@@ -138,6 +160,24 @@ GitHub標準の **Source code (zip)** は開発用ソースであり、導入用
 信頼登録のコピーやグローバル設定の変更は行いません。
 
 ## できること
+
+### 導入スコープ：標準はPROJECT
+
+機能の配置先とデータの共有範囲は別です。標準導入ではHookを
+`<project>/.codex/`、記憶を`<project>/AI_MEMORY_BUNDLE/`へ配置します。
+同じ設置先を使う複数チャットは、選択した記憶を共有します。設定の影響をプロジェクト内に
+限定する方式で、チャットごとの私有記憶や、複数PC・複数人の自動同期ではありません。
+
+共有する方針・事実とチャット固有の進捗は区別してください。`state/current.md`も共有なので、
+別チャットの実行計画やGOとして採用しません。開発進捗はDEV_STATEのチャット/セッション別
+状態へ記録します。記憶更新は単一のローカル書込み担当で調整し、同時書込みやクラウド同期の
+安全性は保証しません。個人情報を記録する前にローカルファイルの閲覧範囲を確認します。
+
+GLOBAL/ユーザー全体への導入機能は**同梱していません**。希望する場合、Codexが対応可否・
+影響するチャット・データ所有・Hook重複・検証方法を検討し、意図と非標準変更の承認範囲を
+確認します。既存Hook・設定・記憶・進捗・信頼設定を自動で上書き・移行・混合しません。
+実運用の記憶・固有設定・証拠をGitや公開物へ入れないよう、AIが追跡対象と除外設定を確認します。
+ignoreだけでは既に追跡された情報は除去できません。AI向け事前確認は`FRESH_CHAT_HANDOFF.md`。
 
 - 採用したポリシー・好み・確認済み事実・現在作業・重要な決定・未確認候補を小さなファイルで保持。
 - 短い派生メモ`HOT_STATE.md`を現在状態のハッシュと照合。

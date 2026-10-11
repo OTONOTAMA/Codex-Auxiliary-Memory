@@ -102,14 +102,18 @@ if (-not (Test-Path -LiteralPath $sourceAdapter -PathType Leaf)) {
 }
 
 $conflicts = @(
-    @($targetBundle, $targetHooksJson, $targetAdapter) |
+    @($targetBundle, $targetHooksJson, $targetAdapter) + @(
+        if (Test-Path -LiteralPath $sourceDocs -PathType Container) {
+            Get-ChildItem -LiteralPath $sourceDocs -File | ForEach-Object { Join-Path $targetRoot $_.Name }
+        }
+    ) |
         Where-Object { Test-Path -LiteralPath $_ }
 )
 if ($conflicts.Count -gt 0) {
     Write-Output 'INSTALLATION_STATUS = BLOCKED_EXISTING_TARGET'
     Write-Output 'Existing files were not changed:'
     $conflicts | ForEach-Object { Write-Output "  $_" }
-    Write-Output 'Ask the fresh Codex chat to inspect and merge the existing configuration.'
+    Write-Output 'Ask Codex to inspect scope and plan a minimal authorized merge; do not overwrite memory or trust.'
     exit 2
 }
 
@@ -156,6 +160,9 @@ Write-Utf8NoBom -Path $targetHooksJson -Content ($hooksJson + "`r`n")
 Update-TargetManifest
 
 Write-Output "TARGET_PROJECT_ROOT = $targetRoot"
+Write-Output 'INSTALLATION_SCOPE = PROJECT'
+Write-Output 'MEMORY_SCOPE = SHARED_BY_CHATS_USING_THIS_PROJECT_INSTALLATION'
+Write-Output 'GLOBAL_INSTALLATION = NOT_PROVIDED; AUTO_CROSS_PC_SHARING = NONE'
 Write-Output 'INSTALLATION_STATUS = FILES_INSTALLED'
 Write-Output 'DETERMINISTIC_TESTS = PENDING_RUN_FIRST'
 Write-Output 'ADAPTER_STATUS = PENDING_RUN_AFTER_TESTS'

@@ -1,10 +1,12 @@
-# v0.2.0 validation scope
+# v0.2.1 validation scope
 
 Verified in an isolated Windows installation fixture:
 
 - Package allowlist, exact empty-memory baselines and private-path/key pattern scan.
 - Regenerated manifest and package hashes; ZIP readback/CRC and byte agreement.
 - Installer creates only the dedicated target; existing target rejected without writes.
+- Optional companion-document conflicts reject before any payload is copied.
+- Two synthetic session IDs read the same PROJECT memory without writes.
 - Included adapter selftests: 11 PASS, 0 FAIL.
 - Empty initial state Status: PASS.
 - Simulated startup/resume/clear/compact: valid bounded empty context, no file changes.

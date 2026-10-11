@@ -7,6 +7,13 @@ HOT_STATE_IS_DERIVED_NON_CANONICAL
 
 ## Read
 
+Standard memory scope is PROJECT. All chats using this bundle share its files,
+including state/current.md. Treat another chat's work as reference, not your own
+active task or authorization. Keep session-specific progress in owned DEV_STATE.
+共有記憶とチャット固有進捗を区別し、別チャットの作業やGOを自分のものとして採用しない。
+Coordinate one local writer; concurrent memory edits are not transactionally isolated.
+Keep live memory and personal data out of Git/public uploads; files do not auto-sync across PCs/users.
+
 Read manifest.toml and this index. Resolve only the canonical sources needed
 for the current task. Use state/current.md to continue work only if it contains
 an actual recorded task. Empty slots do not justify inferring a prior identity,

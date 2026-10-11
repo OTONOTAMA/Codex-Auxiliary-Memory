@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = ROOT / "package"
 BUNDLE = PACKAGE / "payload/AI_MEMORY_BUNDLE"
 DIST = ROOT / "dist"
-NAME = "Codex-Auxiliary-Memory-v0.2.0"
+NAME = "Codex-Auxiliary-Memory-v0.2.1"
 BUNDLE_FILES = (
     "README.md", "index.md", "canonical/policy.md", "canonical/profile.md",
     "canonical/facts.md", "state/current.md", "decisions/decisions.md",
@@ -94,7 +94,7 @@ def build():
         assert sha((BUNDLE / rel).read_bytes()) == expected
     assert (BUNDLE / "runtime/HOT_STATE.md").stat().st_size <= 4096
     members = {rel: (PACKAGE / rel).read_bytes() for rel in PACKAGE_FILES}
-    for rel in ("README.md", "LICENSE", "CHANGELOG.md", "docs/UNINSTALL.md", "docs/VALIDATION.md"):
+    for rel in (".gitignore", ".gitattributes", "README.md", "LICENSE", "CHANGELOG.md", "docs/UNINSTALL.md", "docs/VALIDATION.md"):
         members[rel] = (ROOT / rel).read_bytes()
     assert b"Copyright (c) 2026 OTONOTAMA" in members["LICENSE"]
     DIST.mkdir(exist_ok=True)

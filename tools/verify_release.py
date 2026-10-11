@@ -68,9 +68,28 @@ def verify():
             assert "UNVERIFIED on the target host" in context
             assert len(context.encode("utf-8")) <= 4096
         assert snapshot() == before
+        # Same installed PROJECT memory is read by different session identities.
+        for session_id in ('scope-chat-one', 'scope-chat-two'):
+            event = json.dumps({'hook_event_name': 'SessionStart', 'source': 'resume',
+                                'session_id': session_id, 'cwd': str(target)})
+            context = json.loads(run(adapter, '-Mode', 'HookSessionStart', stdin=event))['hookSpecificOutput']['additionalContext']
+            assert 'AI_MEMORY_BOOTSTRAP_STATUS = PASS' in context and 'MEMORY_STATUS = EMPTY' in context
+        assert snapshot() == before
         assert "BLOCKED_EXISTING_TARGET" in run(package / "INSTALL.ps1", "-TargetProjectRoot",
                                                 str(target), expected=2)
         assert snapshot() == before
+        # Optional companion docs must be preflighted BEFORE copying any payload.
+        companion_source = package / 'payload/docs'
+        companion_source.mkdir()
+        (companion_source / 'existing-guide.md').write_bytes(b'Synthetic package guide')
+        conflict_target = temp / 'companion-conflict-target'
+        conflict_target.mkdir()
+        existing_guide = conflict_target / 'existing-guide.md'
+        existing_guide.write_bytes(b'User-owned guide must remain unchanged')
+        assert 'BLOCKED_EXISTING_TARGET' in run(package / 'INSTALL.ps1', '-TargetProjectRoot',
+                                               str(conflict_target), expected=2)
+        assert existing_guide.read_bytes() == b'User-owned guide must remain unchanged'
+        assert sorted(p.name for p in conflict_target.iterdir()) == ['existing-guide.md']
         # Guard must reject a nonempty memory slot, restoring original bytes afterward.
         from build_release import BUNDLE
         slot = BUNDLE / "canonical/profile.md"
@@ -89,6 +108,7 @@ def verify():
         return {"status": "PASS", "selftest_pass": 11, "selftest_fail": 0,
                 "installed_empty_state": "PASS", "simulated_sources": 4,
                 "no_write": "PASS", "no_overwrite": "PASS", "privacy_negative_test": "PASS",
+                "project_shared_memory_sessions": 2, "companion_conflict_preflight": "PASS",
                 "real_target_lifecycle": "UNVERIFIED"}
     finally:
         assert temp.parent == ROOT and temp.name.startswith(".release-test-")

@@ -3,3 +3,9 @@ __pycache__/
 *.pyc
 .release-test-*/
 *.log
+
+# Installed private data/config at repository root; shipped package/ templates remain tracked.
+/AI_MEMORY_BUNDLE/
+/.codex/hooks.json
+/.codex/config.toml
+/.codex/hooks/ai-memory-adapter.ps1
